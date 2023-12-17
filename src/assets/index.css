@@ -1,0 +1,40 @@
+*,
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-family: "Lato", sans-serif;
+}
+
+body {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    309deg,
+    rgba(255, 255, 255, 1) 13%,
+    rgba(249, 249, 249, 1) 27%,
+    rgba(247, 239, 229, 1) 35%,
+    rgba(249, 242, 232, 1) 40%,
+    rgba(255, 251, 245, 1) 48%,
+    rgba(249, 242, 232, 1) 63%,
+    rgba(247, 239, 229, 1) 67%,
+    rgba(248, 240, 230, 1) 68%,
+    rgba(240, 213, 255, 1) 96%,
+    rgba(194, 186, 209, 1) 100%
+  );
+  color: #313131;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: 0 0 5px rgb(235, 192, 217);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7743db;
+  border-radius: 4px;
+}
