@@ -20,11 +20,10 @@ function App() {
 
   useEffect(() => {
     const getTasks = async () => {
-      onSnapshot(collection(db, "tasks"), (snapshot) => {
+      onSnapshot(collection(db, "categories"), (snapshot) => {
         let tempTasks = snapshot.docs.map((doc) => {
           return {
             id: doc.id,
-            taskDate: doc.taskDate,
             ...doc.data(),
           };
         });

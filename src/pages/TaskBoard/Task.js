@@ -1,15 +1,23 @@
 import { Close, Event } from "@mui/icons-material";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 function Task({ task }) {
+  const convertDate = () => {
+    const currentDate = new window.Date();
+    const date = new window.Date(task.date);
+    const days = Math.floor((date - currentDate) / (1000 * 60 * 60 * 24));
+
+    return days > 0 ? date.toDateString().slice(4, 10) : "Today";
+  };
+
   return (
     <Container>
-      <Title>{task.taskTitle}</Title>
-      <Description>{task.taskDescription}</Description>
-      <Priority task={task.taskPriority}>{task.taskPriority}</Priority>
+      <Title>{task.title}</Title>
+      <Description>{task.description}</Description>
+      <Priority task={task.priority}>{task.priority}</Priority>
       <Date>
-        <Event /> {task.taskDate}
+        <Event /> {convertDate()}
       </Date>
       <Remove>
         <Close className="close" />
@@ -55,21 +63,21 @@ const Priority = styled.p`
   border-radius: 6px;
   color: ${(props) => {
     if (props.task === "High") {
-      return "#9d0208";
+      return "#ef233c";
     } else if (props.task === "Medium") {
-      return "#e85d04";
+      return "#f8961e";
     } else {
-      return "#65b741";
+      return "#80b918";
     }
   }};
   max-width: 100px;
   background: ${(props) => {
     if (props.task === "High") {
-      return "#ff0a54";
+      return "rgba(255, 117, 143, 0.4)";
     } else if (props.task === "Medium") {
-      return "#ffba08";
+      return "rgba(255, 186, 8, 0.4)";
     } else {
-      return "#c1f2b0";
+      return "rgba(193, 242, 176, 0.4)";
     }
   }};
   font-size: 85%;
@@ -80,7 +88,7 @@ const Priority = styled.p`
 
 const Date = styled.div`
   margin-top: 18px;
-  opacity: 0.6;
+  opacity: 0.45;
   display: flex;
   gap: 8px;
   align-items: center;

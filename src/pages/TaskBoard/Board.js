@@ -5,23 +5,15 @@ import { useSelector } from "react-redux";
 import { selectTasks } from "../../features/task/taskSlice";
 
 function Board() {
-  const tasks = useSelector(selectTasks);
-
-  const createTask = () => {
-    console.log("ok");
-  };
+  const categories = useSelector(selectTasks);
 
   return (
     <Container>
-      {tasks &&
-        tasks.map((task, index) => {
+      {categories &&
+        categories.map((category, index) => {
           return (
-            <Category>
-              <Heading>
-                {task.taskCategory}
-                <Quantity>3</Quantity> <AddNew onClick={createTask}>+</AddNew>
-              </Heading>
-              <Tasks category={task.taskCategory} />
+            <Category key={index}>
+              <Tasks category={category} />
             </Category>
           );
         })}
@@ -40,27 +32,4 @@ const Category = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18px;
-`;
-
-const Heading = styled.h3`
-  font-size: 1.25rem;
-  letter-spacing: -0.5px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-transform: capitalize;
-`;
-
-const Quantity = styled.div`
-  background: #c3acd0;
-  color: #7743db;
-  padding: 6px;
-  border-radius: 0px 32px 32px 32px;
-`;
-
-const AddNew = styled(Quantity)`
-  background: transparent;
-  border: 1px dashed #7743db;
-  cursor: pointer;
-  margin: 0 0 0 auto;
 `;
