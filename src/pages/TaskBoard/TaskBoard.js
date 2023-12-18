@@ -8,7 +8,6 @@ import Board from "./Board";
 function TaskBoard() {
   const user = useSelector(selectUser);
   const userPhoto = useSelector(selectUserPhoto);
-  console.log(userPhoto);
 
   return (
     <Container>

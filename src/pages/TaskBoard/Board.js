@@ -1,45 +1,30 @@
 import React from "react";
 import styled from "styled-components";
 import Tasks from "./Tasks";
+import { useSelector } from "react-redux";
+import { selectTasks } from "../../features/task/taskSlice";
 
 function Board() {
+  const tasks = useSelector(selectTasks);
+
   const createTask = () => {
     console.log("ok");
   };
 
   return (
     <Container>
-      <Category>
-        <Heading>
-          Research <Quantity>3</Quantity>{" "}
-          <AddNew onClick={createTask}>+</AddNew>
-        </Heading>
-        <Tasks />
-      </Category>
-
-      <Category>
-        <Heading>
-          Design <Quantity>2</Quantity>
-          <AddNew onClick={createTask}>+</AddNew>
-        </Heading>
-        <Tasks />
-      </Category>
-
-      <Category>
-        <Heading>
-          Development <Quantity>4</Quantity>
-          <AddNew onClick={createTask}>+</AddNew>
-        </Heading>
-        <Tasks />
-      </Category>
-
-      <Category>
-        <Heading>
-          Code <Quantity>2</Quantity>
-          <AddNew onClick={createTask}>+</AddNew>
-        </Heading>
-        <Tasks />
-      </Category>
+      {tasks &&
+        tasks.map((task, index) => {
+          return (
+            <Category>
+              <Heading>
+                {task.taskCategory}
+                <Quantity>3</Quantity> <AddNew onClick={createTask}>+</AddNew>
+              </Heading>
+              <Tasks category={task.taskCategory} />
+            </Category>
+          );
+        })}
     </Container>
   );
 }
@@ -63,6 +48,7 @@ const Heading = styled.h3`
   display: flex;
   align-items: center;
   gap: 8px;
+  text-transform: capitalize;
 `;
 
 const Quantity = styled.div`

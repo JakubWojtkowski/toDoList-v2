@@ -9,6 +9,7 @@ import Login from "./pages/Login/Login";
 import { db } from "./firebase.config";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "./features/user/userSlice.js";
+import { setTasks } from "./features/task/taskSlice.js";
 import { collection, onSnapshot } from "firebase/firestore";
 
 function App() {
@@ -23,17 +24,20 @@ function App() {
         let tempTasks = snapshot.docs.map((doc) => {
           return {
             id: doc.id,
+            taskDate: doc.taskDate,
             ...doc.data(),
           };
         });
-        // dispatch();
+
+        dispatch(setTasks(tempTasks));
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
       });
     };
 
-    // setTimeout(() => {
-    //   setIsLoading(false);
-    // }, 1000);
-  }, []);
+    getTasks();
+  }, [dispatch]);
 
   return (
     <>

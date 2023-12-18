@@ -2,17 +2,14 @@ import { Close, Event } from "@mui/icons-material";
 import React from "react";
 import styled from "styled-components";
 
-function Task() {
+function Task({ task }) {
   return (
     <Container>
-      <Title>Redesign Token Market</Title>
-      <Description>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam
-        kus afhgwalpxk tkwopwa
-      </Description>
-      <Priority>Low</Priority>
+      <Title>{task.taskTitle}</Title>
+      <Description>{task.taskDescription}</Description>
+      <Priority task={task.taskPriority}>{task.taskPriority}</Priority>
       <Date>
-        <Event /> Today
+        <Event /> {task.taskDate}
       </Date>
       <Remove>
         <Close className="close" />
@@ -56,9 +53,25 @@ const Description = styled.p`
 
 const Priority = styled.p`
   border-radius: 6px;
-  color: #65b741;
+  color: ${(props) => {
+    if (props.task === "High") {
+      return "#9d0208";
+    } else if (props.task === "Medium") {
+      return "#e85d04";
+    } else {
+      return "#65b741";
+    }
+  }};
   max-width: 100px;
-  background: #c1f2b0;
+  background: ${(props) => {
+    if (props.task === "High") {
+      return "#ff0a54";
+    } else if (props.task === "Medium") {
+      return "#ffba08";
+    } else {
+      return "#c1f2b0";
+    }
+  }};
   font-size: 85%;
   padding: 4px;
   font-weight: bold;

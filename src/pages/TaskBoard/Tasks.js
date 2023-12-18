@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Task from "./Task";
+import { useSelector } from "react-redux";
+import { selectTasks } from "../../features/task/taskSlice";
 
-function Tasks() {
+function Tasks(category) {
+  const tasks = useSelector(selectTasks);
+
   return (
     <Container>
-      <Task />
-      <Task />
+      {tasks?.map((task, index) => {
+        return <Task key={index} task={task} />;
+      })}
     </Container>
   );
 }
