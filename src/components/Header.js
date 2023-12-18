@@ -43,7 +43,7 @@ function Header() {
     <Container>
       <Navbar>
         <LeftNav>
-          <Logo>TodoList.</Logo>
+          <Logo>TodoList</Logo>
           <Item>Functions</Item>
           <Item>Team</Item>
           <Item>Prices</Item>

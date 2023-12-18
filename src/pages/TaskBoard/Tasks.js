@@ -4,12 +4,8 @@ import Task from "./Task";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase.config";
 
-function Tasks({ category }) {
+function Tasks({ category, showAddTaskForm }) {
   const [tasks, setTasks] = useState([]);
-
-  const createTask = () => {
-    console.log("ok");
-  };
 
   useEffect(() => {
     async function getTasks() {
@@ -22,7 +18,6 @@ function Tasks({ category }) {
               ...doc.data(),
             };
           });
-
           setTasks(tempTasks);
         }
       );
@@ -36,7 +31,7 @@ function Tasks({ category }) {
       <Heading>
         {category.name}
         <Quantity>{tasks.length}</Quantity>
-        <AddNew onClick={createTask}>+</AddNew>
+        <AddNew onClick={() => showAddTaskForm(category.id)}>+</AddNew>
       </Heading>
       {tasks?.map((task, index) => {
         return <Task key={index} task={task} />;
@@ -65,7 +60,7 @@ const Heading = styled.h3`
 const Quantity = styled.div`
   background: #c3acd0;
   color: #7743db;
-  padding: 6px;
+  padding: 2px 6px;
   border-radius: 0px 32px 32px 32px;
 `;
 

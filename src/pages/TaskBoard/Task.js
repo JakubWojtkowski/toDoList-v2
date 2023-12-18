@@ -1,5 +1,5 @@
 import { Close, Event } from "@mui/icons-material";
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 function Task({ task }) {
@@ -14,13 +14,13 @@ function Task({ task }) {
   return (
     <Container>
       <Title>{task.title}</Title>
-      <Description>{task.description}</Description>
+      <Description>{task.description.slice(0, 50).concat("...")}</Description>
       <Priority task={task.priority}>{task.priority}</Priority>
       <Date>
         <Event /> {convertDate()}
       </Date>
       <Remove>
-        <Close className="close" />
+        <Close />
       </Remove>
     </Container>
   );
@@ -33,6 +33,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 18px;
   background: #f9f9f9;
+  width: 240px;
   padding: 18px;
   border-radius: 24px;
   position: relative;
@@ -43,7 +44,7 @@ const Remove = styled.div`
   top: 12px;
   right: 12px;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.45;
   transition: all 250ms ease-in-out;
 
   &:hover {
