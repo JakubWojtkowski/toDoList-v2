@@ -6,19 +6,33 @@ import Header from "./components/Header";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import TaskBoard from "./pages/TaskBoard/TaskBoard.js";
 import Login from "./pages/Login/Login";
-import { useSelector } from "react-redux";
+import { db } from "./firebase.config";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "./features/user/userSlice.js";
+import { collection, onSnapshot } from "firebase/firestore";
 
 function App() {
   const user = useSelector(selectUser);
   const [isLoading, setIsLoading] = useState(true);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    const getTasks = async () => {
+      onSnapshot(collection(db, "tasks"), (snapshot) => {
+        let tempTasks = snapshot.docs.map((doc) => {
+          return {
+            id: doc.id,
+            ...doc.data(),
+          };
+        });
+        // dispatch();
+      });
+    };
+
+    // setTimeout(() => {
+    //   setIsLoading(false);
+    // }, 1000);
   }, []);
 
   return (

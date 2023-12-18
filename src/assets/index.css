@@ -22,6 +22,7 @@ body {
     rgba(240, 213, 255, 1) 96%,
     rgba(194, 186, 209, 1) 100%
   );
+  background-repeat: no-repeat;
   color: #313131;
 }
 

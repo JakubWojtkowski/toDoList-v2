@@ -46,7 +46,12 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   flex: 1;
-  background: #e9e9e9;
+  background: rgba(192, 192, 192, 0.25);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(6.9px);
+  -webkit-backdrop-filter: blur(6.9px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   padding: 48px;
   border-radius: 12px;
   display: flex;
