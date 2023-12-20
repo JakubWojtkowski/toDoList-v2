@@ -1,4 +1,4 @@
-import { TaskOutlined } from "@mui/icons-material";
+import { Code, TaskOutlined } from "@mui/icons-material";
 import React from "react";
 import styled from "styled-components";
 
@@ -18,7 +18,7 @@ function Hero() {
 
       <Cards>
         <TaskCard>
-          <CircleIcon>
+          <CircleIcon tasks="tasks">
             <TaskOutlined />
           </CircleIcon>
           <CardHeading>Manage your Task</CardHeading>
@@ -29,7 +29,7 @@ function Hero() {
         </TaskCard>
         <ProjectsCard>
           <CircleIcon>
-            <TaskOutlined />
+            <Code />
           </CircleIcon>
           <CardHeading>Manage your Projects</CardHeading>
           <CardSubHeading>
@@ -60,14 +60,14 @@ const TextHero = styled.div`
 `;
 
 const Heading = styled.h1`
-  font-size: clamp(3rem, 7.5vw, 5rem);
-  letter-spacing: -0.5px;
+  font-size: clamp(3rem, 7.5vw, 5.5rem);
+  letter-spacing: -1px;
 `;
 
 const SubHeading = styled.p`
-  font-size: 24px;
+  font-size: 1.35rem;
   line-height: 1.5;
-  width: 75%;
+  width: 80%;
   margin-bottom: 36px;
 `;
 
@@ -104,18 +104,21 @@ const TaskCard = styled.div`
   align-items: center;
   justify-content: center;
   gap: 12px;
-  border: 3px solid #313131;
+  border: 4px solid #674188;
   border-radius: 12px;
   grid-row: 2;
   padding: 10px;
+  background: #c3acd0;
 `;
 
 const ProjectsCard = styled(TaskCard)`
   width: 260px;
   height: 260px;
-  border-color: #7743db;
+  border-color: #c3acd0;
   grid-row: 1;
   grid-column: 3;
+  box-shadow: -12px 12px #313131;
+  background: #f7efe5;
 `;
 
 const CardHeading = styled.h2`
@@ -131,7 +134,7 @@ const CardSubHeading = styled.p`
 
 const CircleIcon = styled.div`
   position: absolute;
-  background: #c3acd0;
+  background: ${(props) => (props.tasks === "tasks" ? "#674188" : "#c3acd0")};
   width: 64px;
   height: 64px;
   border-radius: 50%;
@@ -141,5 +144,6 @@ const CircleIcon = styled.div`
 
   .MuiSvgIcon-root {
     color: #f9f9f9 !important;
+    font-size: 30px !important;
   }
 `;
