@@ -34,7 +34,7 @@ function Tasks({ category, showAddTaskForm }) {
         <AddNew onClick={() => showAddTaskForm(category.id)}>+</AddNew>
       </Heading>
       {tasks?.map((task, index) => {
-        return <Task key={index} task={task} />;
+        return <Task key={index} task={task} categoryId={category.id} />;
       })}
     </Container>
   );

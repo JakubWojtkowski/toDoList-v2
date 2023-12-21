@@ -1,8 +1,12 @@
 import { Close, Event } from "@mui/icons-material";
-import React from "react";
-import styled from "styled-components";
+import { deleteDoc, doc } from "firebase/firestore";
+import React, { useState } from "react";
+import styled, { css, keyframes } from "styled-components";
+import { db } from "../../firebase.config";
 
-function Task({ task }) {
+function Task({ task, categoryId }) {
+  const [isDelete, setIsDelete] = useState(false);
+
   const convertDate = () => {
     const currentDate = new window.Date();
     const date = new window.Date(task.date);
@@ -11,15 +15,31 @@ function Task({ task }) {
     return days > 0 ? date.toDateString().slice(4, 10) : "Today";
   };
 
+  const removeTask = async (taskId) => {
+    await deleteDoc(doc(db, "categories", categoryId, "tasks", taskId));
+  };
+
+  const handleClick = (id) => {
+    setIsDelete(true);
+    setTimeout(() => {
+      removeTask(id);
+      setIsDelete(false);
+    }, 750);
+  };
+
   return (
-    <Container>
+    <Container animate={isDelete}>
       <Title>{task.title}</Title>
       <Description>{task.description.slice(0, 50).concat("...")}</Description>
       <Priority task={task.priority}>{task.priority}</Priority>
       <Date>
         <Event /> {convertDate()}
       </Date>
-      <Remove>
+      <Remove
+        onClick={() => {
+          handleClick(task.id);
+        }}
+      >
         <Close />
       </Remove>
     </Container>
@@ -27,6 +47,16 @@ function Task({ task }) {
 }
 
 export default Task;
+
+const flash = keyframes`
+  from {
+      opacity: 1;
+      }
+
+      to {
+      opacity: 0;
+      }
+`;
 
 const Container = styled.div`
   display: flex;
@@ -37,6 +67,12 @@ const Container = styled.div`
   padding: 18px;
   border-radius: 24px;
   position: relative;
+
+  animation: ${(props) =>
+    props.animate &&
+    css`
+      ${flash} 1s linear;
+    `};
 `;
 
 const Remove = styled.div`

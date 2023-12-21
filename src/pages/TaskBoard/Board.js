@@ -13,11 +13,13 @@ import {
 } from "@mui/icons-material";
 import { addDoc, collection, doc } from "firebase/firestore";
 import { db } from "../../firebase.config";
+import { PulseLoader } from "react-spinners";
 
 function Board() {
   const categories = useSelector(selectTasks);
   const [categoryId, setCategoryId] = useState("");
   const [display, setDisplay] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [task, setTask] = React.useState({
     title: "",
     description: "",
@@ -43,6 +45,7 @@ function Board() {
   };
 
   const createTask = (event) => {
+    setIsLoading(true);
     event.preventDefault();
 
     const docRef = doc(db, "categories", categoryId);
@@ -57,7 +60,8 @@ function Board() {
 
     setTimeout(() => {
       setDisplay((curr) => !curr);
-    }, 1500);
+      setIsLoading(false);
+    }, 1000);
   };
 
   return (
@@ -142,7 +146,9 @@ function Board() {
           <Remove onClick={() => setDisplay(true)}>
             <Close />
           </Remove>
-          <Button onClick={createTask}>Add Task</Button>
+          <Button onClick={createTask}>
+            {isLoading ? <PulseLoader size={10} color="#f9f9f9" /> : "Add Task"}
+          </Button>
         </AddForm>
       )}
     </Container>
