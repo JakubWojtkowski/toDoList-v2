@@ -1,6 +1,8 @@
 import { Code, TaskOutlined } from "@mui/icons-material";
 import React from "react";
 import styled from "styled-components";
+import { ReactComponent as Arrow } from "../../assets/images/arrow.svg";
+import arrowLine from "../../assets/images/arrow-line.svg";
 
 function Hero() {
   return (
@@ -13,10 +15,12 @@ function Hero() {
           Simplify your life with our sleek todo list website for effortless
           task organization
         </SubHeading>
+
         <Button>Discover</Button>
       </TextHero>
 
       <Cards>
+        <img src={arrowLine} alt="" />
         <TaskCard>
           <CircleIcon tasks="tasks">
             <TaskOutlined />
@@ -37,6 +41,7 @@ function Hero() {
             Project Management Made Simple
           </CardSubHeading>
         </ProjectsCard>
+        <Arrow />
       </Cards>
     </Container>
   );
@@ -49,7 +54,7 @@ const Container = styled.div`
   display: grid;
   place-items: center;
   grid-template-columns: 1fr 1fr;
-  padding: 64px 0;
+  ${"" /* padding: 64px 0; */}
   min-height: calc(100vh - 82px);
 `;
 
@@ -66,7 +71,7 @@ const Heading = styled.h1`
 
 const SubHeading = styled.p`
   font-size: 1.35rem;
-  line-height: 1.5;
+  line-height: 1.75;
   width: 80%;
   margin-bottom: 36px;
 `;
@@ -93,6 +98,20 @@ const Cards = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   place-items: end;
+
+  img {
+    transform: rotate(-120deg);
+    width: 100%;
+    height: 100%;
+    ${
+      "" /* filter: brightness(0) saturate(100%) invert(76%) sepia(54%) saturate(198%) hue-rotate(224deg) brightness(90%) contrast(79%); */
+    }
+    filter: brightness(0) saturate(100%) invert(31%) sepia(51%) saturate(6297%) hue-rotate(250deg) brightness(91%) contrast(88%);
+  }
+
+  svg {
+    grid-column: 3;
+  }
 `;
 
 const TaskCard = styled.div`
@@ -145,5 +164,6 @@ const CircleIcon = styled.div`
   .MuiSvgIcon-root {
     color: #f9f9f9 !important;
     font-size: 30px !important;
+    position: absolute;
   }
 `;

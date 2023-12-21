@@ -44,9 +44,9 @@ function Header() {
       <Navbar>
         <LeftNav>
           <Logo>TodoList</Logo>
-          <Item>Functions</Item>
-          <Item>Team</Item>
-          <Item>Prices</Item>
+          <Item>Features</Item>
+          <Item>Pricing</Item>
+          <Item>Resources</Item>
           {user.name && <Link to={"/board"}>Board</Link>}
         </LeftNav>
         <RightNav>
@@ -85,7 +85,7 @@ const LeftNav = styled.div`
   display: flex;
   align-items: center;
   gap: 36px;
-  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  font-size: clamp(1rem, 1.5vw, 1.1rem);
 
   a {
     text-decoration: none;
@@ -109,6 +109,7 @@ const Logo = styled.h1`
 const Item = styled.div`
   cursor: pointer;
   transition: all 250ms ease-in-out;
+  letter-spacing: -0.25px;
 
   &:hover {
     color: #c3acd0;
