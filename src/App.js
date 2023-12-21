@@ -31,7 +31,7 @@ function App() {
         dispatch(setTasks(tempTasks));
         setTimeout(() => {
           setIsLoading(false);
-        }, 1000);
+        }, 2500);
       });
     };
 

@@ -15,8 +15,17 @@ function Hero() {
           Simplify your life with our sleek todo list website for effortless
           task organization
         </SubHeading>
-
-        <Button>Discover</Button>
+        <TextBottom>
+          <Button>Discover</Button>
+          <Numbers>
+            <Number>+2500</Number>
+            <Title>New Users Weekly</Title>
+          </Numbers>
+          <Numbers>
+            <Number>100%</Number>
+            <Title>Better Overall Productivity</Title>
+          </Numbers>
+        </TextBottom>
       </TextHero>
 
       <Cards>
@@ -54,8 +63,8 @@ const Container = styled.div`
   display: grid;
   place-items: center;
   grid-template-columns: 1fr 1fr;
-  ${"" /* padding: 64px 0; */}
   min-height: calc(100vh - 82px);
+  padding: 18px 0;
 `;
 
 const TextHero = styled.div`
@@ -73,20 +82,27 @@ const SubHeading = styled.p`
   font-size: 1.35rem;
   line-height: 1.75;
   width: 80%;
+  opacity: 0.75;
   margin-bottom: 36px;
+`;
+
+const TextBottom = styled.div`
+  display: flex;
+  gap: 36px;
 `;
 
 const Button = styled.button`
   padding: 12px 24px;
   border-radius: 12px;
-  margin: 0 auto 0 0;
   cursor: pointer;
   transition: all 250ms ease-in-out;
   border: 1px solid #c3acd0;
+  border: none;
   background: #7743db;
   color: #fffbf5;
   font-size: 1.25rem;
   letter-spacing: -0.5px;
+  box-shadow: rgba(119, 67, 219, 0.5) 0px 7px 29px 0px;
 
   &:hover {
     border-radius: 24px;
@@ -103,10 +119,8 @@ const Cards = styled.div`
     transform: rotate(-120deg);
     width: 100%;
     height: 100%;
-    ${
-      "" /* filter: brightness(0) saturate(100%) invert(76%) sepia(54%) saturate(198%) hue-rotate(224deg) brightness(90%) contrast(79%); */
-    }
-    filter: brightness(0) saturate(100%) invert(31%) sepia(51%) saturate(6297%) hue-rotate(250deg) brightness(91%) contrast(88%);
+    filter: brightness(0) saturate(100%) invert(31%) sepia(51%) saturate(6297%)
+      hue-rotate(250deg) brightness(91%) contrast(88%);
   }
 
   svg {
@@ -166,4 +180,21 @@ const CircleIcon = styled.div`
     font-size: 30px !important;
     position: absolute;
   }
+`;
+
+const Numbers = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Number = styled.h2`
+  font-weight: 900;
+  font-family: "Rubik";
+`;
+
+const Title = styled.span`
+  opacity: 0.65;
 `;
