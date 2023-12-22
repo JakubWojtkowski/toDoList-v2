@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { db } from "../../firebase.config";
 
-function Task({ task, categoryId }) {
+function Task({ task, categoryId, boardStatus }) {
   const [isDelete, setIsDelete] = useState(false);
 
   const convertDate = () => {
@@ -24,11 +24,11 @@ function Task({ task, categoryId }) {
     setTimeout(() => {
       removeTask(id);
       setIsDelete(false);
-    }, 750);
+    }, 500);
   };
 
   return (
-    <Container animate={isDelete}>
+    <Container animate={isDelete} status={task.status}>
       <Title>{task.title}</Title>
       <Description>{task.description.slice(0, 50).concat("...")}</Description>
       <Priority task={task.priority}>{task.priority}</Priority>
@@ -71,7 +71,7 @@ const Container = styled.div`
   animation: ${(props) =>
     props.animate &&
     css`
-      ${flash} 1s linear;
+      ${flash} 600ms linear;
     `};
 `;
 
@@ -94,6 +94,7 @@ const Title = styled.h4``;
 const Description = styled.p`
   line-height: 1.5;
   opacity: 0.6;
+  margin-right: 18px;
 `;
 
 const Priority = styled.p`

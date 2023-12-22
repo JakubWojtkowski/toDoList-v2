@@ -4,7 +4,7 @@ import Task from "./Task";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase.config";
 
-function Tasks({ category, showAddTaskForm }) {
+function Tasks({ category, showAddTaskForm, boardStatus }) {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -34,7 +34,14 @@ function Tasks({ category, showAddTaskForm }) {
         <AddNew onClick={() => showAddTaskForm(category.id)}>+</AddNew>
       </Heading>
       {tasks?.map((task, index) => {
-        return <Task key={index} task={task} categoryId={category.id} />;
+        return (
+          <Task
+            key={index}
+            task={task}
+            boardStatus={boardStatus}
+            categoryId={category.id}
+          />
+        );
       })}
     </Container>
   );
