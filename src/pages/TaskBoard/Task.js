@@ -10,7 +10,13 @@ function Task({ task, categoryId, boardStatus }) {
   const convertDate = () => {
     const currentDate = new window.Date();
     const date = new window.Date(task.date);
-    const days = Math.floor((date - currentDate) / (1000 * 60 * 60 * 24));
+    const days = Math.floor((date - currentDate) / (1000 * 60 * 60 * 24)) + 1;
+    console.log(task.title + " " + days);
+
+    if (days < 0) {
+      task.status = "delayed";
+      return date.toDateString().slice(4, 10);
+    }
 
     return days > 0 ? date.toDateString().slice(4, 10) : "Today";
   };
@@ -67,6 +73,10 @@ const Container = styled.div`
   padding: 18px;
   border-radius: 24px;
   position: relative;
+  border: ${(props) =>
+    props.status === "delayed"
+      ? "2px solid #ff758fcf"
+      : "2px solid transparent"};
 
   animation: ${(props) =>
     props.animate &&
