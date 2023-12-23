@@ -16,7 +16,7 @@ function Board() {
   const categories = useSelector(selectTasks);
   const [categoryId, setCategoryId] = useState("");
   const [display, setDisplay] = useState(true);
-  const [boardStatus, setBoardStatus] = useState("");
+  const [boardStatus, setBoardStatus] = useState("current");
 
   const changeBoard = (board) => {
     setBoardStatus(board);
@@ -30,13 +30,13 @@ function Board() {
   return (
     <Container>
       <SideBar>
-        <Select>
-          <Dashboard onClick={() => changeBoard("current")} />
+        <Select onClick={() => changeBoard("current")}>
+          <Dashboard />
           Board
         </Select>
 
-        <Select>
-          <CalendarMonth name="calendar" />
+        <Select name="calendar">
+          <CalendarMonth />
           Calendar
         </Select>
 
@@ -45,13 +45,13 @@ function Board() {
           Done
         </Select>
 
-        <Select>
-          <Assignment name="current" onClick={() => changeBoard("current")} />
+        <Select name="current" onClick={() => changeBoard("current")}>
+          <Assignment />
           Current
         </Select>
 
-        <Select>
-          <EventBusy name="delayed" onClick={() => changeBoard("delayed")} />
+        <Select name="delayed" onClick={() => changeBoard("delayed")}>
+          <EventBusy />
           Delayed
         </Select>
       </SideBar>

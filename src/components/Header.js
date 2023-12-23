@@ -70,8 +70,16 @@ function Header() {
 export default Header;
 
 const Container = styled.div`
-  height: 82px;
   display: flex;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  position: fixed;
+  margin: auto auto;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  z-index: 1;
+  height: 82px;
 `;
 
 const Navbar = styled.div`

@@ -1,17 +1,16 @@
-import { Close, Event } from "@mui/icons-material";
-import { deleteDoc, doc } from "firebase/firestore";
+import { Close, Done, Event } from "@mui/icons-material";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { db } from "../../firebase.config";
 
-function Task({ task, categoryId, boardStatus }) {
-  const [isDelete, setIsDelete] = useState(false);
+function Task({ task, categoryId }) {
+  const [isClicked, setIsClicked] = useState(false);
 
   const convertDate = () => {
     const currentDate = new window.Date();
     const date = new window.Date(task.date);
     const days = Math.floor((date - currentDate) / (1000 * 60 * 60 * 24)) + 1;
-    console.log(task.title + " " + days);
 
     if (days < 0) {
       task.status = "delayed";
@@ -25,29 +24,48 @@ function Task({ task, categoryId, boardStatus }) {
     await deleteDoc(doc(db, "categories", categoryId, "tasks", taskId));
   };
 
+  const checkTask = async (taskId) => {
+    const docRef = doc(db, "categories", categoryId, "tasks", taskId);
+
+    updateDoc(docRef, {
+      status: "done",
+    }).then(() => {
+      console.log("Updating document...");
+    });
+  };
+
   const handleClick = (id) => {
-    setIsDelete(true);
+    setIsClicked(true);
     setTimeout(() => {
       removeTask(id);
-      setIsDelete(false);
+      setIsClicked(false);
     }, 500);
   };
 
   return (
-    <Container animate={isDelete} status={task.status}>
+    <Container animate={isClicked} status={task.status}>
       <Title>{task.title}</Title>
       <Description>{task.description.slice(0, 50).concat("...")}</Description>
       <Priority task={task.priority}>{task.priority}</Priority>
       <Date>
         <Event /> {convertDate()}
       </Date>
-      <Remove
-        onClick={() => {
-          handleClick(task.id);
-        }}
-      >
-        <Close />
-      </Remove>
+      <Actions>
+        <Check
+          onClick={() => {
+            checkTask(task.id);
+          }}
+        >
+          <Done />
+        </Check>
+        <Remove
+          onClick={() => {
+            handleClick(task.id);
+          }}
+        >
+          <Close />
+        </Remove>
+      </Actions>
     </Container>
   );
 }
@@ -85,26 +103,16 @@ const Container = styled.div`
     `};
 `;
 
-const Remove = styled.div`
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  cursor: pointer;
-  opacity: 0.45;
-  transition: all 250ms ease-in-out;
-
-  &:hover {
-    opacity: 1;
-    transform: rotate(90deg);
-  }
+const Title = styled.h4`
+  width: 75%;
+  overflow: hidden;
 `;
-
-const Title = styled.h4``;
 
 const Description = styled.p`
   line-height: 1.5;
   opacity: 0.6;
   margin-right: 18px;
+  overflow: hidden;
 `;
 
 const Priority = styled.p`
@@ -143,5 +151,31 @@ const Date = styled.div`
 
   .MuiSvgIcon-root {
     position: relative;
+  }
+`;
+
+const Actions = styled.div``;
+
+const Remove = styled.div`
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+  opacity: 0.45;
+  transition: all 250ms ease-in-out;
+
+  &:hover {
+    opacity: 1;
+    transform: rotate(90deg);
+  }
+`;
+
+const Check = styled(Remove)`
+  top: 12px;
+  right: 36px;
+
+  &:hover {
+    opacity: 1;
+    transform: rotate(0deg);
   }
 `;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Task from "./Task";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../firebase.config";
 
 function Tasks({ category, showAddTaskForm, boardStatus }) {
@@ -9,39 +9,36 @@ function Tasks({ category, showAddTaskForm, boardStatus }) {
 
   useEffect(() => {
     async function getTasks() {
-      onSnapshot(
+      const q = query(
         collection(db, `categories/${category.id}/tasks`),
-        (snapshot) => {
-          let tempTasks = snapshot.docs.map((doc) => {
-            return {
-              id: doc.id,
-              ...doc.data(),
-            };
-          });
-          setTasks(tempTasks);
-        }
+        where("status", "==", boardStatus)
       );
+
+      onSnapshot(q, (snapshot) => {
+        let tempTasks = snapshot.docs.map((doc) => {
+          return {
+            id: doc.id,
+            ...doc.data(),
+          };
+        });
+        setTasks(tempTasks);
+      });
     }
 
     getTasks();
-  }, [category.id]);
+  }, [category.id, boardStatus]);
 
   return (
     <Container>
       <Heading>
         {category.name}
         <Quantity>{tasks.length}</Quantity>
-        <AddNew onClick={() => showAddTaskForm(category.id)}>+</AddNew>
+        {boardStatus === "current" && (
+          <AddNew onClick={() => showAddTaskForm(category.id)}>+</AddNew>
+        )}
       </Heading>
       {tasks?.map((task, index) => {
-        return (
-          <Task
-            key={index}
-            task={task}
-            boardStatus={boardStatus}
-            categoryId={category.id}
-          />
-        );
+        return <Task key={index} task={task} categoryId={category.id} />;
       })}
     </Container>
   );
@@ -67,7 +64,7 @@ const Heading = styled.h3`
 const Quantity = styled.div`
   background: #c3acd0;
   color: #7743db;
-  padding: 2px 6px;
+  padding: 3px 8px;
   border-radius: 0px 32px 32px 32px;
 `;
 
