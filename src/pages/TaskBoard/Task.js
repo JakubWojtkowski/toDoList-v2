@@ -7,13 +7,13 @@ import { db } from "../../firebase.config";
 function Task({ task, categoryId }) {
   const [isClicked, setIsClicked] = useState(false);
 
-  const convertDate = () => {
+  const convertDate = (taskId) => {
     const currentDate = new window.Date();
     const date = new window.Date(task.date);
     const days = Math.floor((date - currentDate) / (1000 * 60 * 60 * 24)) + 1;
 
     if (days < 0) {
-      task.status = "delayed";
+      checkTask(taskId, "delayed");
       return date.toDateString().slice(4, 10);
     }
 
@@ -24,20 +24,20 @@ function Task({ task, categoryId }) {
     await deleteDoc(doc(db, "categories", categoryId, "tasks", taskId));
   };
 
-  const checkTask = async (taskId) => {
+  const checkTask = async (taskId, status) => {
     const docRef = doc(db, "categories", categoryId, "tasks", taskId);
 
     updateDoc(docRef, {
-      status: "done",
+      status: status,
     }).then(() => {
       console.log("Updating document...");
     });
   };
 
-  const handleClick = (id) => {
+  const handleClick = (taskId) => {
     setIsClicked(true);
     setTimeout(() => {
-      removeTask(id);
+      removeTask(taskId);
       setIsClicked(false);
     }, 500);
   };
@@ -48,12 +48,12 @@ function Task({ task, categoryId }) {
       <Description>{task.description.slice(0, 50).concat("...")}</Description>
       <Priority task={task.priority}>{task.priority}</Priority>
       <Date>
-        <Event /> {convertDate()}
+        <Event /> {convertDate(task.id)}
       </Date>
       <Actions>
         <Check
           onClick={() => {
-            checkTask(task.id);
+            checkTask(task.id, "done");
           }}
         >
           <Done />
@@ -91,6 +91,7 @@ const Container = styled.div`
   padding: 18px;
   border-radius: 24px;
   position: relative;
+  transition: all 250ms ease-in-out;
   border: ${(props) =>
     props.status === "delayed"
       ? "2px solid #ff758fcf"
@@ -101,6 +102,10 @@ const Container = styled.div`
     css`
       ${flash} 600ms linear;
     `};
+
+  &:hover {
+    transform: translateY(-0.5rem);
+  }
 `;
 
 const Title = styled.h4`

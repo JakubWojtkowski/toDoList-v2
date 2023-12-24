@@ -85,6 +85,7 @@ const Container = styled.div`
   display: flex;
   gap: 36px;
   position: relative;
+  overflow-x: scroll;
 `;
 
 const Category = styled.div`
