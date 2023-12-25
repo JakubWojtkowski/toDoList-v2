@@ -52,6 +52,7 @@ function NewTaskForm({ categoryId, showAddTaskForm }) {
     <AddForm method="POST">
       <Header>Add New Task</Header>
       <Title
+        autoFocus={true}
         onChange={handleChange}
         name="title"
         type="text"
@@ -64,7 +65,7 @@ function NewTaskForm({ categoryId, showAddTaskForm }) {
         name="description"
         placeholder="Description..."
         required
-        rows="3"
+        rows="2"
         value={task.description}
       />
       <Priority
@@ -112,6 +113,7 @@ const AddForm = styled.form`
   padding: 18px;
   border-radius: 24px;
   position: relative;
+  align-items: center;
 `;
 
 const Header = styled.h3`
@@ -132,21 +134,73 @@ const Remove = styled.div`
   }
 `;
 
-const Title = styled.input``;
+const Title = styled.input`
+  border: none;
+  margin-top: 18px;
+  padding: 10px;
+  width: 250px;
+  border-radius: 6px;
+  border: 1px solid #313131;
+  transition: all 250ms ease-in-out;
+  opacity: 0.5;
+
+  &:focus {
+    outline: none;
+    opacity: 1;
+  }
+`;
 
 const Description = styled.textarea`
   line-height: 1.5;
-  opacity: 0.6;
+  border: none;
+  padding: 10px;
+  resize: none;
+  width: 250px;
+  border-radius: 6px;
+  border: 1px solid #313131;
+  opacity: 0.5;
+  transition: all 250ms ease-in-out;
+
+  &:focus {
+    outline: none;
+    opacity: 1;
+  }
 `;
 
-const Priority = styled.select``;
+const Priority = styled.select`
+  border: none;
+  padding: 10px;
+  width: 75%;
+  width: 250px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid #313131;
+  opacity: 0.5;
+  transition: all 250ms ease-in-out;
+
+  &:focus {
+    outline: none;
+    opacity: 1;
+  }
+`;
 
 const Date = styled.input`
-  margin-top: 18px;
-  opacity: 0.45;
+  border-radius: 6px;
+  width: 250px;
   display: flex;
   gap: 8px;
   align-items: center;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid #313131;
+  opacity: 0.5;
+  transition: all 250ms ease-in-out;
+
+  &:focus {
+    outline: none;
+    opacity: 1;
+  }
 
   .MuiSvgIcon-root {
     position: relative;
