@@ -13,7 +13,10 @@ function Task({ task, categoryId }) {
     const days = Math.floor((date - currentDate) / (1000 * 60 * 60 * 24)) + 1;
 
     if (days < 0) {
-      checkTask(taskId, "delayed");
+      if (task.status !== "done") {
+        checkTask(taskId, "delayed");
+      }
+
       return date.toDateString().slice(4, 10);
     }
 
@@ -51,13 +54,15 @@ function Task({ task, categoryId }) {
         <Event /> {convertDate(task.id)}
       </Date>
       <Actions>
-        <Check
-          onClick={() => {
-            checkTask(task.id, "done");
-          }}
-        >
-          <Done />
-        </Check>
+        {task.status !== "done" && (
+          <Check
+            onClick={() => {
+              checkTask(task.id, "done");
+            }}
+          >
+            <Done />
+          </Check>
+        )}
         <Remove
           onClick={() => {
             handleClick(task.id);
