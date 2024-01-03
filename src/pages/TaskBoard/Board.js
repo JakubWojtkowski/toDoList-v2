@@ -56,25 +56,26 @@ function Board() {
         </Select>
       </SideBar>
 
-      {display === true &&
-        categories?.map((category, index) => {
-          return (
-            <Category key={index}>
-              <Tasks
-                category={category}
-                boardStatus={boardStatus}
-                showAddTaskForm={showAddTaskForm}
-              />
-            </Category>
-          );
-        })}
-
-      {!display && (
-        <NewTaskForm
-          categoryId={categoryId}
-          showAddTaskForm={showAddTaskForm}
-        />
-      )}
+      <Main>
+        {display === true &&
+          categories?.map((category, index) => {
+            return (
+              <Category key={index}>
+                <Tasks
+                  category={category}
+                  boardStatus={boardStatus}
+                  showAddTaskForm={showAddTaskForm}
+                />
+              </Category>
+            );
+          })}
+        {!display && (
+          <NewTaskForm
+            categoryId={categoryId}
+            showAddTaskForm={showAddTaskForm}
+          />
+        )}
+      </Main>
     </Container>
   );
 }
@@ -85,7 +86,7 @@ const Container = styled.div`
   display: flex;
   gap: 36px;
   position: relative;
-  overflow-x: scroll;
+  overflow: hidden;
 `;
 
 const Category = styled.div`
@@ -95,11 +96,19 @@ const Category = styled.div`
 `;
 
 const SideBar = styled.div`
+  position: relative;
+  position: -webkit-sticky;
+  position: sticky;
   width: 64px;
   display: flex;
   flex-direction: column;
   gap: 36px;
-  position: sticky;
+`;
+
+const Main = styled.div`
+  display: flex;
+  gap: 36px;
+  overflow-x: scroll;
 `;
 
 const Select = styled.div`

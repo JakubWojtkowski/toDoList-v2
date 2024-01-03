@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./assets/index.css";
 import styled from "styled-components";
 import Home from "./pages/Home/Home.js";
 import Loader from "./components/Loader.js";

@@ -41,6 +41,7 @@ const Container = styled.div`
   margin-top: 82px;
   min-height: calc(100vh - 82px);
   display: flex;
+  max-width: 1200px;
   padding: 24px 0;
 `;
 
