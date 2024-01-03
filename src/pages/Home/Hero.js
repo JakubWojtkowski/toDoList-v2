@@ -65,6 +65,12 @@ const Container = styled.div`
   grid-template-columns: 1fr 1fr;
   min-height: calc(100vh - 82px);
   padding: 18px 0;
+  grid-gap: 36px;
+
+  @media only screen and (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    grid-gap: 72px;
+  }
 `;
 
 const TextHero = styled.div`
@@ -74,7 +80,7 @@ const TextHero = styled.div`
 `;
 
 const Heading = styled.h1`
-  font-size: clamp(3rem, 7.5vw, 5.5rem);
+  font-size: clamp(4rem, 7.5vw, 5.5rem);
   letter-spacing: -1px;
 `;
 
@@ -126,6 +132,19 @@ const Cards = styled.div`
   svg {
     grid-column: 3;
   }
+
+  @media only screen and (max-width: 768px) {
+    img,
+    svg {
+      display: none;
+    }
+
+    .MuiSvgIcon-root {
+      display: block;
+    }
+
+    grid-template-columns: 1fr;
+  }
 `;
 
 const TaskCard = styled.div`
@@ -142,6 +161,12 @@ const TaskCard = styled.div`
   grid-row: 2;
   padding: 10px;
   background: #c3acd0;
+
+  @media only screen and (max-width: 768px) {
+    width: 250px;
+    height: 180px;
+    grid-row: 2;
+  }
 `;
 
 const ProjectsCard = styled(TaskCard)`
@@ -152,6 +177,12 @@ const ProjectsCard = styled(TaskCard)`
   grid-column: 3;
   box-shadow: -12px 12px #313131;
   background: #f7efe5;
+
+  @media only screen and (max-width: 768px) {
+    width: 220px;
+    height: 260px;
+    grid-column: 1;
+  }
 `;
 
 const CardHeading = styled.h2`
@@ -197,4 +228,5 @@ const Number = styled.h2`
 
 const Title = styled.span`
   opacity: 0.65;
+  text-align: center;
 `;

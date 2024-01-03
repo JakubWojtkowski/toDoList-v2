@@ -8,6 +8,7 @@ import {
 } from "../features/user/userSlice";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { auth } from "../firebase.config";
+import { DragHandle, Menu } from "@mui/icons-material";
 
 function Header() {
   const user = useSelector(selectUser);
@@ -47,9 +48,17 @@ function Header() {
           <Item>Features</Item>
           <Item>Pricing</Item>
           <Item>Resources</Item>
-          {user.name && <Link to={"/board"}>Board</Link>}
+
+          {user.name && (
+            <Link to={"/board"}>
+              <Item>Board</Item>
+            </Link>
+          )}
         </LeftNav>
         <RightNav>
+          <ItemDropDown>
+            <Menu />
+          </ItemDropDown>
           {user.name !== null ? (
             <Button login onClick={signOut}>
               Sign Out
@@ -77,7 +86,7 @@ const Container = styled.div`
   margin: auto auto;
   max-width: 1200px;
   margin: 0 auto;
-  width: 100%;
+  width: 90vw;
   z-index: 1;
   height: 82px;
 `;
@@ -108,7 +117,7 @@ const LeftNav = styled.div`
 
 const Logo = styled.h1`
   font-weight: 900;
-  font-size: 2.25rem;
+  font-size: clamp(1.5rem, 5vw, 2.25rem);
   margin-right: 36px;
   color: #7743db;
   cursor: pointer;
@@ -122,9 +131,26 @@ const Item = styled.div`
   &:hover {
     color: #c3acd0;
   }
+
+  @media only screen and (max-width: 1024px) {
+    display: none;
+  }
 `;
 
-const RightNav = styled(LeftNav)``;
+const ItemDropDown = styled.div``;
+
+const RightNav = styled(LeftNav)`
+  .MuiSvgIcon-root {
+    color: #7743db;
+    font-size: 28px;
+    cursor: pointer;
+    display: none;
+
+    @media only screen and (max-width: 1024px) {
+      display: block;
+    }
+  }
+`;
 
 const Button = styled.button`
   padding: 12px 24px;
@@ -142,5 +168,9 @@ const Button = styled.button`
   &:hover {
     border-radius: 24px;
     background: ${(props) => (props.login ? "" : "#7743db;")};
+  }
+
+  @media only screen and (max-width: 768px) {
+    display: none;
   }
 `;
