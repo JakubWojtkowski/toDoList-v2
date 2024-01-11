@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "./features/user/userSlice.js";
 import { setTasks } from "./features/task/taskSlice.js";
 import { collection, onSnapshot } from "firebase/firestore";
+import Footer from "./components/Footer.js";
 
 function App() {
   const user = useSelector(selectUser);
@@ -61,6 +62,7 @@ function App() {
                 <Home />
               </Route>
             </Switch>
+            <Footer />
           </Router>
         </Container>
       )}
